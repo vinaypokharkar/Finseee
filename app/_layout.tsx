@@ -1,39 +1,17 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
+export default function Layout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="screen/home" options={{ headerShown: false }} />
+      <Stack.Screen name="screen/scan-qr" options={{ title: 'Scan QR' }} />
+      <Stack.Screen name="screen/pay-phone" options={{ title: 'Pay via Phone' }} />
+      <Stack.Screen name="screen/pay-contacts" options={{ title: 'Pay Contacts' }} />
+      <Stack.Screen name="screen/bank-transfer" options={{ title: 'Bank Transfer' }} />
+      <Stack.Screen name="screen/check-balance" options={{ title: 'Check Balance' }} />
+      <Stack.Screen name="screen/assistance" options={{ title: 'Assistance' }} />
+      <Stack.Screen name="screen/profile" options={{ title: 'Profile' }} />
+    </Stack>
   );
 }
